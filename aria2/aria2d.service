@@ -7,7 +7,7 @@ After = NetworkManager-wait-online.service network.target network-online.target 
 User = lzz
 Type = simple
 PIDFile = /var/run/aria2.pid
-ExecStart = /usr/bin/aria2c --conf-path=/home/lzz/.aria2/aria2.conf
+ExecStart = /usr/bin/aria2c --conf-path=/etc/aria2.conf
 StartLimitInterval = 60
 StartLimitBurst = 10
 
