@@ -1,6 +1,6 @@
 # BY Andrew 2018.9.19 https://lzzone.top
 
-aria2_dir=$HOME/.aria2
+aria2_dir=/home/pi/.aria2
 aria2_conf=$aria2_dir/aria2.conf
 aria2_download=$HOME/Downloads
 
@@ -123,6 +123,7 @@ Download_aria2_Service(){
 	if ! wget --no-check-certificate "https://raw.githubusercontent.com/lzzbhad/script/master/aria2/aria2d.service"; then
 	    echo -e "${Error} Aria2服务 管理脚本下载失败 !" && exit 1
 	fi
+	sed -i "s?^User.*?User = $(whoami)?" aria2d.service
         sed -i "s?^ExecStart.*?ExecStart = /usr/bin/aria2c --conf-path=$aria2_dir/aria2.conf?" aria2d.service
 	sudo mv aria2d.service /etc/systemd/system/aria2d.service
 	sudo systemctl daemon-reload
@@ -154,6 +155,7 @@ Print_Setup_Info(){
 }
 install(){
 	init_script $1
+	check_sys
 	check_new_ver
 	Download_aria2
 	Download_aria2_conf
